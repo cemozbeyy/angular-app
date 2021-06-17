@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-users-2e4b5": {
+      "hosting": {
+        "angular-app": [
+          "angular-users-2e4b5"
+        ]
+      }
+    }
+  }
+}

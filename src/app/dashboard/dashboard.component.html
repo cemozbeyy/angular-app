@@ -1,0 +1,33 @@
+<div id="app">
+  <div class="hero">
+    <div class="hero-wrap">
+      <h1>Users List</h1>
+      <p>Kullanıcı hesapları.</p>
+    </div>
+  </div>
+
+  <!-- <div class="input-wrap"> İLERİDE GELİCEK ÖZELLİK
+		<input type="text" v-model="search" placeholder="Filter by username.." />
+	</div>
+	 -->
+  
+    <div class="list-row user-list">
+      <div class="col" *ngFor="let user of $users | async">
+        <div class="image-wrap">
+          <h5 class="special-color">Profile Card</h5>
+          <p>Name: {{ user.profile.name }}</p>
+        </div>
+        <div class="content-wrap">
+          <h2>Name:{{ user.profile.name }}</h2>
+          <h2>Surname:{{ user.profile.surname }}</h2>
+          <p>
+            <span><i class="fa fa-paper-plane"></i>Email</span>
+            {{ user.profile.email }}
+          </p>
+          <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
+            Sil
+          </button>
+        </div>
+      </div>
+    </div>
+</div>

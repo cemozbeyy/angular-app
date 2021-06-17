@@ -1,0 +1,59 @@
+<body>
+    <form [formGroup]="signinForm">
+      <mat-card>
+        <mat-card-title class="text-center p-1">
+          <h1>Giriş Yap</h1></mat-card-title
+        >
+        <mat-form-field class="w-100 yellow-input">
+          <input
+            matInput
+            type="text"
+            placeholder="E-mailiniz"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': validaton.email.touched && validaton.email.errors
+            }"
+          />
+          <div
+            *ngIf="validaton.email.touched && validaton.email.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="validaton.email.errors.required">E-MAİL ZORUNLUDUR</div>
+          </div>
+        </mat-form-field>
+        <mat-form-field class="w-100 yellow-input">
+          <input
+            matInput
+            type="password"
+            placeholder="Şifreniz"
+            class="form-control"
+            formControlName="password"
+            #pass
+            [ngClass]="{
+              'is-invalid':
+                validaton.password.touched && validaton.password.errors
+            }"
+          />
+          <div
+            *ngIf="validaton.password.touched && validaton.password.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="validaton.password.errors.required">
+              ŞİFRE ALANI ZORUNLUDUR
+            </div>
+            <div *ngIf="validaton.password.errors.minlength">
+              ŞİFRENİZ ÇOK KISA.
+            </div>
+          </div>
+        </mat-form-field>
+        <div class="row">
+          <div class="col-6"><a [routerLink]="['/signup']">Üye değil misiniz buradan <span>kayıt olabilirsiniz</span> </a></div>
+          <div class="col-6 button-part">
+            <button mat-flat-button color="warn" (click)='login()' >Giriş Yap </button>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+  </body>
+  
