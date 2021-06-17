@@ -8,6 +8,8 @@ import * as admin from 'firebase-admin';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+const USER_COLLECTION = 'users';
+
 
 @Injectable()
 export class UserService {
@@ -20,7 +22,7 @@ export class UserService {
   ) {}
 
   get getUsers() {
-    return this.afFireStore.collection<User>('users', query => query.orderBy('profile'))
+    return this.afFireStore.collection<User>(USER_COLLECTION, query => query.orderBy('profile'))
       .snapshotChanges()
       .pipe(
         map(o => o.map(doc => ({ id: doc.payload.doc.id, ...doc.payload.doc.data() } as User)))
@@ -30,7 +32,9 @@ export class UserService {
   // getUser(userId: string): Observable<User> {
   //   return this.af.database.object('users/' + userId);
   // }
-
+  updateUser(user: User) {
+    return this.afFireStore.collection(USER_COLLECTION).doc(user.id).update(user);
+  }
   createUser(user: User) {
     this.afAuth
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -56,7 +60,7 @@ export class UserService {
   deleteUser(user: User): Observable<any[]> {
     let dataToDelete: any = {};
     if (user !== undefined &&  user.id !== undefined) {
-      this.afFireStore.collection('users').doc(user.id).delete()
+      this.afFireStore.collection(USER_COLLECTION).doc(user.id).delete()
     }
     return of(dataToDelete);
   }
