@@ -115,7 +115,12 @@ body {
 .user-list {
   list-style: none;
   position: relative;
-
+  .col-6 {
+    display: inline-grid;
+    button {
+      width: 110px;
+    }
+  }
   @media (max-width: 1024px) {
     padding: 0px 15px;
   }

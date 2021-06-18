@@ -1,0 +1,54 @@
+<mat-dialog-content class="w-set mat-typography">
+    <div class="list-row user-list">
+      <div class="col" *ngIf="_user">
+        <div class="image-wrap">
+          <h5 class="special-color">Profile Card</h5>
+        </div>
+        <div class="content-wrap">
+            Name:
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name:"
+            [(ngModel)]="_user.profile.name"
+          />
+          Surname:
+          <input
+            type="text"
+            class="form-control"
+            id="surname"
+            placeholder="Surname:"
+            [(ngModel)]="_user.profile.surname"
+          />
+            Password:
+          <input
+            type="text"
+            class="form-control"
+            id="password"
+            placeholder="Password:"
+            [(ngModel)]="_user.profile.password"
+          />
+          <p>
+            <span><i class="fa fa-paper-plane"></i>E-mail</span>
+            <input
+            type="text"
+            class="form-control"
+            id="email"
+            placeholder="Password:"
+            readonly
+            [(ngModel)]="_user.profile.email"
+          />
+          </p>
+          <button
+            class="btn btn-success"
+            (click)="updateUser(_user)"
+            [disabled]="_user.isDisabledForEdit"
+          >
+            Güncelle
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  

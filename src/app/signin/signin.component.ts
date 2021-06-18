@@ -1,3 +1,4 @@
+import { User } from './../user';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -26,7 +27,7 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private fb: FormBuilder,
-    private toaster :ToastrService
+    private toaster: ToastrService
   ) {}
 
   signinForm = this.fb.group({
@@ -54,21 +55,22 @@ export class SigninComponent implements OnInit {
     if (this.request) {
       this.request.unsubscribe();
     }
-    else{
-      this.toaster.error("E-mail veya parola hatalı !");
-    }
     this.request = this.auth.login(user.email, user.password).subscribe(
       (lUser) => {
+        localStorage.setItem('id', lUser['id']);
+        localStorage.setItem('email', lUser['email']);
+        localStorage.setItem('password', lUser['password']);
+        localStorage.setItem('role', lUser['role']);
         if (lUser) {
           this.loginError = null;
           setTimeout(() => {
-            this.toaster.success("Giriş yapıldı !");
-            this.router.navigate(["/", "dashboard"]);
-          }, 2000);
+            this.toaster.success('Giriş yapıldı !');
+            this.router.navigate(['/', 'dashboard']);
+          }, 1000);
         } else {
-          this.toaster.error("E-mail veya parola hatalı !");
+          this.toaster.error('E-mail veya parola hatalı !');
         }
-      },
+      }
       //Error handling
       // (_err) => {
       //   this.loginError =
@@ -80,6 +82,5 @@ export class SigninComponent implements OnInit {
       //   this.tryingToLogIn = false;
       // }
     );
-    
   }
 }

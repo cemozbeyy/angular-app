@@ -3,6 +3,7 @@ export class User{
     password!:string;
     rePassword!: string;
     name!:string;
+    role!:any;
     surname!:string;
     email:any
     profile: any;

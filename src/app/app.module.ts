@@ -22,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ModalComponent } from './modal/modal.component';
 
  export const config = {
   apiKey: 'AIzaSyCP341_BKNsyWppKkdd5D5njpKJJbhE0-E',
@@ -38,6 +40,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     DashboardComponent,
     SigninComponent,
     SignupComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AngularFireAuthModule, // auth
     AngularFireStorageModule,
     NgbModule, // storage
+    MatDialogModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],

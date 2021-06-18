@@ -13,38 +13,32 @@
 
   <div class="list-row user-list">
     <div class="col" *ngFor="let user of $users | async">
+      {{user | json}}
       <div class="image-wrap">
         <h5 class="special-color">Profile Card</h5>
       </div>
       <div class="content-wrap">
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          placeholder="Name:"
-          [(ngModel)]="user.profile.name"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="surname"
-          placeholder="Surname:"
-          [(ngModel)]="user.profile.surname"
-        />
+        <h2>Name: {{ user.profile.name }}</h2>
+        <h2>Surname :{{ user.profile.surname }}</h2>
         <p>
           <span><i class="fa fa-paper-plane"></i>Email</span>
           {{ user.profile.email }}
         </p>
-        <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
-          Sil
-        </button>
-        <button
-          class="btn btn-warning"
-          (click)="updateUser(user)"
-          [disabled]="user.isDisabledForEdit"
-        >
-          Düzenle
-        </button>
+        <div class="row" *ngIf="user.profile.role == 1" >
+          <div class="col-6">
+            <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
+              Sil
+            </button>
+          </div>
+          <div class="col-6">
+            <button
+              class="btn btn-primary"
+              (click)="openModal(user)"
+            >
+              Ayarlar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
