@@ -7,5 +7,8 @@ export class User{
     email:any
     profile: any;
     object:any;
+
+    // For Ui
+    isDisabledForEdit?: boolean;
   }
   

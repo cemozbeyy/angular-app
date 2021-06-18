@@ -16,32 +16,36 @@
       <div class="image-wrap">
         <h5 class="special-color">Profile Card</h5>
       </div>
-        <div class="content-wrap">
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="Name:"
-            [(ngModel)]="user.profile.name"
-          />
-          <input
-            type="text"
-            class="form-control"
-            id="surname"
-            placeholder="Surname:"
-            [(ngModel)]="user.profile.surname"
-          />
-          <p>
-            <span><i class="fa fa-paper-plane"></i>Email</span>
-            {{ user.profile.email }}
-          </p>
-          <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
-            Sil
-		  </button>
-		  <button class="btn btn-warning" (click)="updateUser(user)">
-            Düzenle
-          </button>
-        </div>
+      <div class="content-wrap">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Name:"
+          [(ngModel)]="user.profile.name"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="surname"
+          placeholder="Surname:"
+          [(ngModel)]="user.profile.surname"
+        />
+        <p>
+          <span><i class="fa fa-paper-plane"></i>Email</span>
+          {{ user.profile.email }}
+        </p>
+        <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
+          Sil
+        </button>
+        <button
+          class="btn btn-warning"
+          (click)="updateUser(user)"
+          [disabled]="user.isDisabledForEdit"
+        >
+          Düzenle
+        </button>
+      </div>
     </div>
   </div>
 </div>

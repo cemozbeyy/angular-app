@@ -54,6 +54,9 @@ export class SigninComponent implements OnInit {
     if (this.request) {
       this.request.unsubscribe();
     }
+    else{
+      this.toaster.error("E-mail veya parola hatalı !");
+    }
     this.request = this.auth.login(user.email, user.password).subscribe(
       (lUser) => {
         if (lUser) {
@@ -77,5 +80,6 @@ export class SigninComponent implements OnInit {
       //   this.tryingToLogIn = false;
       // }
     );
+    
   }
 }

@@ -23,10 +23,17 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.$users = this.userService.getUsers;
   }
-  updateUser(user: User) {
+  async updateUser(user: User) {
     if (user) {
-      this.userService.updateUser(user);
+      await this.userService.updateUser(user);
       this.toaster.success('Kullanıcı güncellendi');
+
+      user.isDisabledForEdit = true;
+
+      setTimeout(() => {
+        delete user.isDisabledForEdit
+      }, 4000);
+
     }
     else{
       this.toaster.error('Kullanıcı güncellendi');
