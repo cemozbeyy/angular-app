@@ -1,4 +1,4 @@
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentSnapshot } from '@angular/fire/firestore';
 import { User } from './user';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -7,6 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import * as admin from 'firebase-admin';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AnyARecord } from 'dns';
 
 const USER_COLLECTION = 'users';
 
@@ -15,6 +16,9 @@ const USER_COLLECTION = 'users';
 export class UserService {
   app: any;
   updatedUserData: any;
+
+  currentUserId!:string;
+
   constructor(
     private afFireStore: AngularFirestore,
     private afAuth: AngularFireAuth,
@@ -29,9 +33,18 @@ export class UserService {
       );
   }
 
-  // getUser(userId: string): Observable<User> {
-  //   return this.af.database.object('users/' + userId);
-  // }
+  getUser(uid: string) {
+    return this.afFireStore.collection<User>(USER_COLLECTION).doc(uid).ref.get();
+  }
+
+  get currentUser() {
+    return <User>JSON.parse(localStorage.getItem("user") || "")
+  }
+
+  get isAdmin() {
+    return this.currentUser.role === 1;
+  }
+
   updateUser(user: User) {
     return this.afFireStore.collection(USER_COLLECTION).doc(user.id).update(user);
   }

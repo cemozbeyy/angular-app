@@ -13,7 +13,6 @@
 
   <div class="list-row user-list">
     <div class="col" *ngFor="let user of $users | async">
-      {{user | json}}
       <div class="image-wrap">
         <h5 class="special-color">Profile Card</h5>
       </div>
@@ -24,17 +23,14 @@
           <span><i class="fa fa-paper-plane"></i>Email</span>
           {{ user.profile.email }}
         </p>
-        <div class="row" *ngIf="user.profile.role == 1" >
+        <div class="row" *ngIf="isAdmin">
           <div class="col-6">
             <button class="btn btn-danger mr-2" (click)="deleteUser(user)">
               Sil
             </button>
           </div>
           <div class="col-6">
-            <button
-              class="btn btn-primary"
-              (click)="openModal(user)"
-            >
+            <button class="btn btn-primary" (click)="openModal(user)">
               Ayarlar
             </button>
           </div>

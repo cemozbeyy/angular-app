@@ -19,19 +19,19 @@ export class DashboardComponent implements OnInit {
   $users: Observable<User[]> = new Observable();
   items = [];
   pageOfItems!: Array<any>;
+
+  isAdmin = this.userService.isAdmin;
+
   constructor(
     public dialog: MatDialog,
     private userService: UserService,
     private toaster: ToastrService,
-    private authService: AuthService
   ) {}
 
   async ngOnInit(): Promise<void> {
     // this.getUsarname = localStorage.getItem('name');
     this.$users = this.userService.getUsers;
-    console.log(this.$users = this.userService.getUsers);
-    this.currentUser = await this.authService.currentUser(this._user).toPromise();
-    console.log(this.currentUser)
+    
   }
 
   openModal(user:User) {

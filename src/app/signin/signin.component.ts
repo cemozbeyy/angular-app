@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { User } from './../user';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './../auth.service';
@@ -27,7 +28,8 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private fb: FormBuilder,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private userService: UserService
   ) {}
 
   signinForm = this.fb.group({
@@ -57,10 +59,11 @@ export class SigninComponent implements OnInit {
     }
     this.request = this.auth.login(user.email, user.password).subscribe(
       (lUser) => {
-        localStorage.setItem('id', lUser['id']);
-        localStorage.setItem('email', lUser['email']);
-        localStorage.setItem('password', lUser['password']);
-        localStorage.setItem('role', lUser['role']);
+        console.log(lUser);
+        this.userService.getUser(lUser.user.uid).then((result) => {
+          const userData = result.data();
+          localStorage.setItem('user', JSON.stringify(userData?.profile));
+        });
         if (lUser) {
           this.loginError = null;
           setTimeout(() => {
