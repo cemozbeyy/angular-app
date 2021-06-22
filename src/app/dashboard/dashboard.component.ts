@@ -6,6 +6,8 @@ import { User } from '../user';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,13 +21,15 @@ export class DashboardComponent implements OnInit {
   $users: Observable<User[]> = new Observable();
   items = [];
   pageOfItems!: Array<any>;
-
+  logoutSub!:Subscription;
   isAdmin = this.userService.isAdmin;
 
   constructor(
+    private aService:AuthService,
     public dialog: MatDialog,
     private userService: UserService,
     private toaster: ToastrService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -33,6 +37,15 @@ export class DashboardComponent implements OnInit {
     this.$users = this.userService.getUsers;
     
   }
+
+  logout(){
+    this.logoutSub = this.aService.logout().subscribe(() => {
+      this.router.navigate(['/signin']).then(() => {
+        this.toaster.success("Çıkış yapıldı")
+      });
+    });
+  }
+
 
   openModal(user:User) {
     this._user = user;
